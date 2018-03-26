@@ -10,8 +10,18 @@ export const INITIAL_POPUP_STATE: POPUP_PROPS = {
   statusCodes: {},
   contentType: {},
   PageDetails: {},
-  interceptStatus : ""
+  interceptStatus : "",
+  ExpandedRows : {}
 };
+
+const fillResponses = (state, action) => {
+  if(![action.payload.expandedIndex]){
+    return {
+      ...state,
+      ExpandedRows: {...state.ExpandedRows, [action.payload.tabId]: { ...state.ExpandedRows[action.payload.tabId] , [action.payload.expandedIndex] : action.payload.response } }
+    };
+  }
+}
 
 //ACTION CONSTANTS
 import * as actionType from "../actions";
@@ -60,9 +70,10 @@ export const reducer = (state = INITIAL_POPUP_STATE, action: Action) => {
           }
         }
       };
-      case actionType.UPDATE_SUCCESS_MESSAGE:{
-        return {...state, interceptStatus : action.message }
-      }
+    case actionType.UPDATE_SUCCESS_MESSAGE:
+      return {...state, interceptStatus : action.message }
+    case actionType.FETCH__REQUEST || actionType.FETCH_FAIL :
+      return fillResponses(state, action);
     default:
       return state;
   }

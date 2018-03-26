@@ -17,7 +17,8 @@ import {
   handleRespTextChange,
   handleStatusCodeChange,
   handleContentTypeChange,
-  handlePaginationChange
+  handlePaginationChange,
+  handleExpandedRows
 } from "./actions";
 
 interface DispatchProps {
@@ -32,7 +33,8 @@ interface DispatchProps {
   handleRespTextChange: typeof handleRespTextChange;
   handleStatusCodeChange: typeof handleStatusCodeChange;
   handleContentTypeChange: typeof handleContentTypeChange;
-  handlePaginationChange: typeof handlePaginationChange
+  handlePaginationChange: typeof handlePaginationChange,
+  handleExpandedRows: typeof handleExpandedRows
 }
 
 const CHROME_URL_REGEX = /^chrome:\/\/.+$/;
@@ -111,6 +113,10 @@ export class Popup extends React.Component<POPUP_PROPS & DispatchProps, {}> {
     this.props.handlePaginationChange(newPageNo_rowSize, tabId, field)
   }
 
+  handleExpandedRows = (expandedIndex:number, tabId:number, url:string, method:string) => {
+    this.props.handleExpandedRows(expandedIndex, tabId, url, method)
+  }
+
   render() {
     const buttonClass = cx("button", {
       "button-start-listening": !this.props.enabled,
@@ -140,6 +146,7 @@ export class Popup extends React.Component<POPUP_PROPS & DispatchProps, {}> {
           handlePaginationChange = {this.props.handlePaginationChange}
           PageDetails = {this.props.PageDetails}
           tabId = {this.props.tabId}
+          handleExpandedRows={this.handleExpandedRows}
         />
       </div>
     );
@@ -156,6 +163,7 @@ const mapStateToProps = (state: POPUP_PROPS) => ({
   contentType: state.contentType,
   PageDetails : state.PageDetails,
   interceptStatus: state.interceptStatus
+  ExpandedRows: state.ExpandedRows
 });
 
 const mapDispatchToProps: DispatchProps = {
@@ -170,7 +178,8 @@ const mapDispatchToProps: DispatchProps = {
   handleStatusCodeChange,
   handleRespTextChange,
   handleContentTypeChange,
-  handlePaginationChange
+  handlePaginationChange,
+  handleExpandedRows
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Popup);

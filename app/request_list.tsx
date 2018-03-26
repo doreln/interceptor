@@ -18,6 +18,7 @@ export interface RequestObj {
   PageDetails: object;
   handlePaginationChange: React.MouseEvent<HTMLButtonElement>;
   tabId: number;
+  handleExpandedRows:React.MouseEvent<HTMLButtonElement>;
 }
 const RequestList = (props: RequestObj) => {
   const columns = [
@@ -98,7 +99,6 @@ const RequestList = (props: RequestObj) => {
       freezeWhenExpanded={true}
       SubComponent={row => (
         <InterceptForm
-          freezeWhenExpanded={true}
           rowProps={row}
           handleStatusCodeChange={props.handleStatusCodeChange}
           handleRespTextChange={props.handleRespTextChange}
@@ -106,6 +106,8 @@ const RequestList = (props: RequestObj) => {
           statusCodes={props.statusCodes}
           handleContentTypeChange={props.handleContentTypeChange}
           contentType={props.contentType}
+          handleExpandedRows={props.handleExpandedRows}
+          tabId={props.tabId}
         />
       )}
     />

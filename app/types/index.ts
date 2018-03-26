@@ -10,6 +10,7 @@ export interface POPUP_PROPS {
   contentType: object
   PageDetails : object
   interceptStatus : string
+  ExpandedRows :object
 }
 
 export interface selectCheckBoxes{

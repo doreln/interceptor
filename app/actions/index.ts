@@ -14,6 +14,10 @@ export const RESP_TEXT_CHANGE = "RESP_TEXT_CHANGE"
 export const CONTENT_TYPE_CHANGE = "CONTENT_TYPE_CHANGE"
 export const PAGINATION_CHANGE = "PAGINATION_CHANGE"
 export const UPDATE_SUCCESS_MESSAGE = "INTERCEPTION IS SUCCESSFULL"
+export const EXPAND_CLICK_EVENT ="EXPAND_CLICK_EVENT"
+export const FETCH__REQUEST = "FETCH_REQUEST"
+export const FETCH_SUCCESS = "FETCH_SUCCESS"
+export const FETCH_FAIL = "FETCH_FAIL"
 
 // Action Creators
 export function startListening (enabledStatus:boolean){
@@ -52,6 +56,9 @@ export function handleContentTypeChange(value:string, requestId:number){
 export function handlePaginationChange(value: string, tabId:number, field:string) {
   return {type: PAGINATION_CHANGE, payload: {field, value, tabId}};
 }
-export function sendSuccessMessage(message){
+export function sendSuccessMessage(message:string){
   return {type : UPDATE_SUCCESS_MESSAGE,  message }
+}
+export function handleExpandedRows(expandedIndex:number, tabId:number, url:string, method:string){
+  return {type :FETCH__REQUEST, payload : {expandedIndex, tabId, url, method} }
 }

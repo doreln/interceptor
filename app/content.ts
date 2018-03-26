@@ -9,7 +9,7 @@ interface requestObject {
   responseText: string;
 }
 
-interface BgStore{
+export interface BgStore{
   ready(): Promise<void>;
   getState(): any;
   dispatch : any;
@@ -94,7 +94,7 @@ class Intercept {
            });
            this.server.respondWith((xhr, id) => {
              const respondUrl = requestArray.requestsToIntercept.find((request) => {
-              if(xhr.url === request.url){
+              if(xhr.url === request.url && requestArray.responseText[request.requestId] && requestArray.contentType[request.requestId] && requestArray.statusCodes[request.requestId]){
                 xhr.respond(Number(requestArray.statusCodes[request.requestId]), { "Content-Type": requestArray.contentType[request.requestId] },requestArray.responseText[request.requestId].toString())
               }
              })
