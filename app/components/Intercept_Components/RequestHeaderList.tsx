@@ -16,7 +16,7 @@ export const RequestHeaderList = props => {
               <li className="requestHeader" key={index}>
                 <span className="requestHeaderName">{requestHeader.name} :</span>{" "}
                 {requestHeader.name === "Cookie" ? (
-                  <span className="cookie">{requestHeader.value}</span>
+                  <span className="cookie" title={requestHeader.value}>{requestHeader.value}</span>
                 ) : (
                   <span className="requestHeaderValue">{requestHeader.value} </span>
                 )}
